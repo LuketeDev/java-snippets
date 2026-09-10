@@ -1,0 +1,125 @@
+{
+  "Logger": {
+    "scope": "java",
+    "prefix": "log",
+    "body": [
+      "private static final Logger log = LoggerFactory.getLogger(${TM_FILENAME_BASE}.class);"
+    ],
+    "description": "Creates a SLF4J logger"
+  },
+
+  "Guard Clause": {
+    "scope": "java",
+    "prefix": "guard",
+    "body": [
+      "if (${1:condition}) {",
+      "    return ${2:value};",
+      "}",
+      "$0"
+    ],
+    "description": "Creates a guard clause"
+  },
+
+  "Optional Or Throw": {
+    "scope": "java",
+    "prefix": "optthrow",
+    "body": [
+      "${1:User} ${2:user} = ${3:repository.findById($4)}",
+      "    .orElseThrow(() -> new ${5:UserNotFoundException}($4));",
+      "$0"
+    ],
+    "description": "Gets an Optional value or throws an exception"
+  },
+
+  "Map List": {
+    "scope": "java",
+    "prefix": "maplist",
+    "body": [
+      "List<${1:String}> ${2:result} = ${3:items}.stream()",
+      "    .map(${4:Item}::${5:getValue})",
+      "    .toList();",
+      "$0"
+    ],
+    "description": "Maps a list using Stream API"
+  },
+
+  "ResponseEntity": {
+    "scope": "java",
+    "prefix": "response",
+    "body": [
+      "return ResponseEntity.${1:ok}(${2:body});$0"
+    ],
+    "description": "Creates a ResponseEntity response"
+  },
+
+  "Spring Controller": {
+    "scope": "java",
+    "prefix": "controller",
+    "body": [
+      "import lombok.RequiredArgsConstructor;",
+      "import org.springframework.web.bind.annotation.RequestMapping;",
+      "import org.springframework.web.bind.annotation.RestController;",
+      "",
+      "@RestController",
+      "@RequestMapping(\"${1:/api/users}\")",
+      "@RequiredArgsConstructor",
+      "public class ${TM_FILENAME_BASE} {",
+      "    $0",
+      "}"
+    ],
+    "description": "Creates a Spring REST controller"
+  },
+
+  "Spring Service": {
+    "scope": "java",
+    "prefix": "service",
+    "body": [
+      "import lombok.RequiredArgsConstructor;",
+      "import org.springframework.stereotype.Service;",
+      "",
+      "@Service",
+      "@RequiredArgsConstructor",
+      "public class ${TM_FILENAME_BASE} {",
+      "    private final ${1:UserRepository} ${2:userRepository};",
+      "",
+      "    $0",
+      "}"
+    ],
+    "description": "Creates a Spring service with constructor injection"
+  },
+
+  "JPA Repository": {
+    "scope": "java",
+    "prefix": "jparepo",
+    "body": [
+      "import org.springframework.data.jpa.repository.JpaRepository;",
+      "",
+      "public interface ${TM_FILENAME_BASE} extends JpaRepository<${1:User}, ${2:Long}> {",
+      "    $0",
+      "}"
+    ],
+    "description": "Creates a Spring Data JPA repository"
+  },
+
+  "Assert Throws": {
+    "scope": "java",
+    "prefix": "throws",
+    "body": [
+      "assertThrows(${1:UserNotFoundException}.class, () -> ${2:service.findById(id)});",
+      "$0"
+    ],
+    "description": "Creates a JUnit assertThrows test"
+  },
+
+  "Transactional Method": {
+    "scope": "java",
+    "prefix": "transactional",
+    "body": [
+      "@Transactional",
+      "public ${1:void} ${2:methodName}(${3}) {",
+      "    $0",
+      "}"
+    ],
+    "description": "Creates a transactional service method"
+  }
+}
